@@ -14,17 +14,17 @@ REPORT_DIR = report
 
 all: clean test gcov_report $(LIB)
 
-apply_clang:
+clang:
 	cp ../materials/linters/.clang-format .
 	clang-format -i *.h
 	clang-format -i */*.cpp
 	rm -f .clang-format
 
-test: apply_clang $(SRC_C_FILES) $(SRC_H_FILES)
+test: clang $(SRC_C_FILES) $(SRC_H_FILES)
 	$(CC) $(FLAGS) $(SRC_C_FILES) $(TEST_C_FILES) s21_matrix_oop.h -o $(TEST_TARGET) $(LINK_LIBRARIES)
 	./$(TEST_TARGET)
 
-gcov_report: apply_clang
+gcov_report: clang
 	$(CC) --coverage $(FLAGS) $(SRC_C_FILES) $(TEST_C_FILES) -o $(TEST_TARGET) $(LINK_LIBRARIES)
 	./$(TEST_TARGET)
 	lcov -t "$(TEST_TARGET)" -o $(TEST_TARGET).info -c -d .
@@ -32,7 +32,7 @@ gcov_report: apply_clang
 	rm *.gcda *.gcno *.info
 	open report/index.html
 
-$(LIB): apply_clang
+$(LIB): clang
 	$(CC) -c $(SRC_C_FILES) $(LINK_LIBRARIES)
 	ar rcv $(LIB) *.o
 	ranlib $(LIB)

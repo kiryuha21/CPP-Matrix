@@ -4,12 +4,11 @@
 #include <cmath>
 #include <stdexcept>
 
-#define DELTA 1e-7
+auto constexpr DELTA = 1e-7;
 
-#define OUT_OF_RANGE_MSG "Incorrect input, index is out of range"
-#define EMPTY_MATRIX_MSG "Empty matrix!"
-#define INVALID_MATRIX_MSG "Invalid matrix"
-#define DIFFERENT_SIZES_MSG "Different matrix sizes!"
+auto constexpr OUT_OF_RANGE_MSG = "Incorrect input, index is out of range";
+auto constexpr INVALID_MATRIX_MSG = "Invalid matrix";
+auto constexpr DIFFERENT_SIZES_MSG = "Different matrix sizes!";
 
 class S21Matrix {
  private:
@@ -22,6 +21,7 @@ class S21Matrix {
   double recursive_det(const S21Matrix& origin_matrix);
   void minus_row_col(const S21Matrix& origin_matrix, S21Matrix& temp_matrix,
                      int row, int col);
+
  public:
   void setRows(int rows);
   void setCols(int cols);

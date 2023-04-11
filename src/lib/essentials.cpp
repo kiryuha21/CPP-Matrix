@@ -2,42 +2,36 @@
 
 S21Matrix::S21Matrix() = default;
 
-S21Matrix::S21Matrix(int rows, int cols) {
-  init_matrix(rows, cols);
-}
+S21Matrix::S21Matrix(int rows, int cols) { init_matrix(rows, cols); }
 
-S21Matrix::S21Matrix(const S21Matrix& other) {
-  *this = other;
-}
+S21Matrix::S21Matrix(const S21Matrix& other) { *this = other; }
 
-S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
-  *this = std::move(other);
-}
+S21Matrix::S21Matrix(S21Matrix&& other) noexcept { *this = std::move(other); }
 
-S21Matrix::~S21Matrix() {
-  free_matrix();
-}
+S21Matrix::~S21Matrix() { free_matrix(); }
 
 int S21Matrix::getRows() const { return _rows; }
 
 int S21Matrix::getCols() const { return _cols; }
 
 void S21Matrix::setRows(int rows) {
-  double** temp = (double**)realloc(_matrix, rows);
-  if (temp != nullptr) {
-    _matrix = temp;
+  S21Matrix res(rows, _cols);
+  for (int i = 0; i < std::min(rows, _rows); ++i) {
+    for (int j = 0; j < _cols; ++j) {
+      res(i, j) = (*this)(i, j);
+    }
   }
-  _rows = rows;
+  (*this) = std::move(res);
 }
 
 void S21Matrix::setCols(int cols) {
+  S21Matrix res(_rows, cols);
   for (int i = 0; i < _rows; ++i) {
-    double* temp = (double*)realloc(_matrix[i], cols);
-    if (temp != nullptr) {
-      _matrix[i] = temp;
+    for (int j = 0; j < std::min(cols, _cols); ++j) {
+      res(i, j) = (*this)(i, j);
     }
   }
-  _cols = cols;
+  (*this) = std::move(res);
 }
 
 void S21Matrix::free_matrix() {
@@ -56,11 +50,17 @@ void S21Matrix::init_matrix(int rows, int cols) {
   _cols = cols;
 
   try {
-    _matrix = new double *[rows];
+    _matrix = new double*[rows];
     for (int i = 0; i < rows; ++i) {
       _matrix[i] = new double[cols];
     }
   } catch (std::bad_alloc& e) {
     std::throw_with_nested(e);
+  }
+
+  for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < cols; ++j) {
+      _matrix[i][j] = 0;
+    }
   }
 }

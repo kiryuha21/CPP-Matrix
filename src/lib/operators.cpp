@@ -1,10 +1,6 @@
 #include "../s21_matrix_oop.h"
 
-S21Matrix S21Matrix::operator+(const S21Matrix& other){
-  if (_matrix == nullptr || other._matrix == nullptr) {
-    throw std::invalid_argument(EMPTY_MATRIX_MSG);
-  }
-
+S21Matrix S21Matrix::operator+(const S21Matrix& other) {
   if (_rows != other._rows || _cols != other._cols) {
     throw std::length_error(DIFFERENT_SIZES_MSG);
   }
@@ -19,11 +15,7 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other){
   return result;
 }
 
-S21Matrix S21Matrix::operator-(const S21Matrix& other){
-  if (_matrix == nullptr || other._matrix == nullptr) {
-    throw std::invalid_argument(EMPTY_MATRIX_MSG);
-  }
-
+S21Matrix S21Matrix::operator-(const S21Matrix& other) {
   if (_rows != other._rows || _cols != other._cols) {
     throw std::length_error(DIFFERENT_SIZES_MSG);
   }
@@ -38,11 +30,7 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other){
   return result;
 }
 
-S21Matrix S21Matrix::operator*(const S21Matrix& other){
-  if (_matrix == nullptr || other._matrix == nullptr) {
-    throw std::invalid_argument(EMPTY_MATRIX_MSG);
-  }
-
+S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   if (_cols != other._rows) {
     throw std::length_error(DIFFERENT_SIZES_MSG);
   }
@@ -60,11 +48,7 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other){
   return result;
 }
 
-S21Matrix S21Matrix::operator*(const double num){
-  if (_matrix == nullptr) {
-    throw std::invalid_argument(EMPTY_MATRIX_MSG);
-  }
-
+S21Matrix S21Matrix::operator*(const double num) {
   S21Matrix result(_rows, _cols);
   for (int i = 0; i < _rows; ++i) {
     for (int j = 0; j < _cols; ++j) {
@@ -79,11 +63,11 @@ bool S21Matrix::operator==(const S21Matrix& other) {
   return this->EqMatrix(other);
 }
 
-bool S21Matrix::operator!=(const S21Matrix &other) {
+bool S21Matrix::operator!=(const S21Matrix& other) {
   return !this->EqMatrix(other);
 }
 
-S21Matrix& S21Matrix::operator=(const S21Matrix& other){
+S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
   if (this == &other) {
     return *this;
   }
@@ -107,12 +91,8 @@ S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
 
   _rows = other._rows;
   _cols = other._cols;
-
   _matrix = other._matrix;
-  for (int i = 0; i < _rows; ++i) {
-    _matrix[i] = other._matrix[i];
-    other._matrix[i] = nullptr;
-  }
+
   other._matrix = nullptr;
   other._rows = 0;
   other._cols = 0;
@@ -120,24 +100,24 @@ S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
   return *this;
 }
 
-S21Matrix& S21Matrix::operator+=(const S21Matrix& other){
-    *this = *this + other;
-    return *this;
+S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
+  *this = *this + other;
+  return *this;
 }
 
-S21Matrix& S21Matrix::operator-=(const S21Matrix& other){
-    *this = *this - other;
-    return *this;
+S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
+  *this = *this - other;
+  return *this;
 }
 
-S21Matrix& S21Matrix::operator*=(const S21Matrix& other){
-    *this = *this * other;
-    return *this;
+S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
+  *this = *this * other;
+  return *this;
 }
 
-S21Matrix& S21Matrix::operator*=(const double num){
-    *this = *this * num;
-    return *this;
+S21Matrix& S21Matrix::operator*=(const double num) {
+  *this = *this * num;
+  return *this;
 }
 
 double& S21Matrix::operator()(int row, int col) {
