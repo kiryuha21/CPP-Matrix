@@ -63,10 +63,6 @@ bool S21Matrix::operator==(const S21Matrix& other) {
   return this->EqMatrix(other);
 }
 
-bool S21Matrix::operator!=(const S21Matrix& other) {
-  return !this->EqMatrix(other);
-}
-
 S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
   if (this == &other) {
     return *this;
