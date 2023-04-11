@@ -3,8 +3,8 @@ CC = g++
 FLAGS = -Wall -Wextra -Werror -pedantic -std=c++17
 LINK_LIBRARIES = -lgtest
 
-SRC_C_FILES = lib/*.cpp
-TEST_C_FILES = tests/*.cpp
+SRC_C_FILES = lib/*.cc
+TEST_C_FILES = tests/*.cc
 
 TEST_TARGET = s21_test
 
@@ -14,7 +14,7 @@ all: clean test $(LIB)
 
 clang:
 	cp ../materials/linters/.clang-format .
-	clang-format -i $(wildcard */*.cpp *.cpp */*.h *.h)
+	clang-format -i $(wildcard */*.cc *.cc */*.h *.h)
 	rm -f .clang-format
 
 test: clang $(SRC_C_FILES) $(SRC_H_FILES)
