@@ -14,8 +14,7 @@ all: clean test $(LIB)
 
 clang:
 	cp ../materials/linters/.clang-format .
-	clang-format -i *.h
-	clang-format -i */*.cpp
+	clang-format -i $(wildcard */*.cpp *.cpp */*.h *.h)
 	rm -f .clang-format
 
 test: clang $(SRC_C_FILES) $(SRC_H_FILES)

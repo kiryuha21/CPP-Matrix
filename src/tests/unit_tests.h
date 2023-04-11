@@ -7,4 +7,4 @@
 
 S21Matrix random_matrix(int rows, int cols);
 
-#endif // CPP1_S21_MATRIXPLUS_1_UNIT_TESTS_H
+#endif  // CPP1_S21_MATRIXPLUS_1_UNIT_TESTS_H
