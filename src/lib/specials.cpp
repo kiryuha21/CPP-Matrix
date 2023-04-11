@@ -72,7 +72,7 @@ S21Matrix S21Matrix::CalcComplements() {
     return res;
   }
 
-  int sign = 1;
+  int sign;
   S21Matrix temp_matrix(_rows, _cols);
   for (int i = 0; i < temp_matrix._rows; ++i) {
     for (int j = 0; j < temp_matrix._cols; ++j) {

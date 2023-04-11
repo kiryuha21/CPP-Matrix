@@ -1,6 +1,6 @@
 #include "unit_tests.h"
 
-TEST(S21Matrix, correct_transpose) {
+TEST(SpecialsSuite, correct_transpose) {
   S21Matrix test_matrix_1(3, 2);
   S21Matrix test_matrix_2(2, 3);
 
@@ -22,12 +22,12 @@ TEST(S21Matrix, correct_transpose) {
   ASSERT_TRUE(test_matrix_3 == test_matrix_2);
 }
 
-TEST(S21Matrix, invalid_transpose) {
+TEST(SpecialsSuite, invalid_transpose) {
   S21Matrix a;
   ASSERT_THROW(a.Transpose(), std::length_error);
 }
 
-TEST(S21Matrix, correct_complements) {
+TEST(SpecialsSuite, correct_complements) {
   S21Matrix test_matrix_1(3, 3);
   S21Matrix test_matrix_2(3, 3);
 
@@ -55,19 +55,19 @@ TEST(S21Matrix, correct_complements) {
   ASSERT_TRUE(test_matrix_3 == test_matrix_2);
 }
 
-TEST(S21Matrix, wrong_size_calc_complements) {
+TEST(SpecialsSuite, wrong_size_calc_complements) {
   S21Matrix a(3, 5);
   ASSERT_THROW(a.CalcComplements(), std::length_error);
 }
 
-TEST(S21Matrix, signular_size_complements) {
+TEST(SpecialsSuite, signular_size_complements) {
   S21Matrix a(1, 1);
   a(0, 0) = 5;
   S21Matrix b = a.CalcComplements();
   ASSERT_EQ(b(0, 0), 1);
 }
 
-TEST(S21Matrix, correct_zero_det) {
+TEST(SpecialsSuite, correct_zero_det) {
   S21Matrix test_matrix_1(3, 3);
 
   test_matrix_1(0, 0) = 1.0;
@@ -84,12 +84,12 @@ TEST(S21Matrix, correct_zero_det) {
   ASSERT_NEAR(res, 0, DELTA);
 }
 
-TEST(S21Matrix, det_wrong_size) {
+TEST(SpecialsSuite, det_wrong_size) {
   S21Matrix a(3, 5);
   ASSERT_THROW(a.Determinant(), std::length_error);
 }
 
-TEST(S21Matrix, correct_nonzero_det_1) {
+TEST(SpecialsSuite, correct_nonzero_det_1) {
   S21Matrix test_matrix_1(2, 2);
 
   test_matrix_1(0, 0) = 1.0;
@@ -101,7 +101,7 @@ TEST(S21Matrix, correct_nonzero_det_1) {
   ASSERT_NEAR(res, 89, DELTA);
 }
 
-TEST(S21Matrix, correct_nonzero_det_2) {
+TEST(SpecialsSuite, correct_nonzero_det_2) {
   S21Matrix test_matrix_1(4, 4);
 
   test_matrix_1(0, 0) = 1.0;
@@ -125,14 +125,14 @@ TEST(S21Matrix, correct_nonzero_det_2) {
   ASSERT_NEAR(res, -191, DELTA);
 }
 
-TEST(S21Matrix, signular_det) {
+TEST(SpecialsSuite, signular_det) {
   S21Matrix a(1, 1);
   a(0, 0) = 5;
   double det = a.Determinant();
   ASSERT_EQ(det, 5.0);
 }
 
-TEST(S21Matrix, correct_inverse_1) {
+TEST(SpecialsSuite, correct_inverse_1) {
   S21Matrix test_matrix_1(3, 3);
   S21Matrix test_matrix_2(3, 3);
 
@@ -160,7 +160,7 @@ TEST(S21Matrix, correct_inverse_1) {
   ASSERT_TRUE(test_matrix_2 == test_matrix_3);
 }
 
-TEST(S21Matrix, correct_inverse_2) {
+TEST(SpecialsSuite, correct_inverse_2) {
   S21Matrix test_matrix_1(4, 4);
   S21Matrix test_matrix_2(4, 4);
   test_matrix_1(0, 0) = -1.0;
@@ -201,13 +201,13 @@ TEST(S21Matrix, correct_inverse_2) {
   ASSERT_TRUE(test_matrix_3 == test_matrix_2);
 }
 
-TEST(S21Matrix, singular_inverse) {
+TEST(SpecialsSuite, singular_inverse) {
   S21Matrix a = random_matrix(1, 1);
   S21Matrix b = a.InverseMatrix();
   ASSERT_EQ(b(0, 0), 1 / a(0, 0));
 }
 
-TEST(S21Matrix, invalid_inserse) {
+TEST(SpecialsSuite, invalid_inserse) {
   S21Matrix a(3, 3);
 
   a(0, 0) = 1.0;

@@ -1,12 +1,12 @@
 #include "unit_tests.h"
 
-TEST(S21Matrix, default_init) {
+TEST(EssentialsSuite, default_init) {
   S21Matrix a;
   ASSERT_EQ(a.getRows(), 0);
   ASSERT_EQ(a.getCols(), 0);
 }
 
-TEST(S21Matrix, normal_init) {
+TEST(EssentialsSuite, normal_init) {
   S21Matrix a(5, 6);
   ASSERT_EQ(a.getRows(), 5);
   ASSERT_EQ(a.getCols(), 6);
@@ -17,7 +17,7 @@ TEST(S21Matrix, normal_init) {
   }
 }
 
-TEST(S21Matrix, init_with_copy) {
+TEST(EssentialsSuite, init_with_copy) {
   S21Matrix a = random_matrix(5, 6);
   S21Matrix b(a);
 
@@ -26,7 +26,7 @@ TEST(S21Matrix, init_with_copy) {
   ASSERT_TRUE(a == b);
 }
 
-TEST(S21Matrix, init_with_move) {
+TEST(EssentialsSuite, init_with_move) {
   S21Matrix a = random_matrix(5, 6);
   S21Matrix b(a);
   S21Matrix c(std::move(a));
@@ -38,15 +38,15 @@ TEST(S21Matrix, init_with_move) {
   ASSERT_TRUE(a.getRows() == 0);
 }
 
-TEST(S21Matrix, init_with_negative_size) {
+TEST(EssentialsSuite, init_with_negative_size) {
   ASSERT_THROW(S21Matrix a(-1, -1), std::length_error);
 }
 
-TEST(S21Matrix, init_with_overflow) {
+TEST(EssentialsSuite, init_with_overflow) {
   ASSERT_THROW(S21Matrix a(2000000000, 2000000000), std::bad_alloc);
 }
 
-TEST(S21Matrix, correct_element) {
+TEST(EssentialsSuite, correct_element) {
   S21Matrix a(1, 1);
   ASSERT_EQ(a.getCols(), 1);
   ASSERT_EQ(a.getRows(), 1);
@@ -55,7 +55,7 @@ TEST(S21Matrix, correct_element) {
   ASSERT_EQ(a(0, 0), 5);
 }
 
-TEST(S21Matrix, incorrect_element) {
+TEST(EssentialsSuite, incorrect_element) {
   S21Matrix a(1, 1);
   ASSERT_EQ(a.getCols(), 1);
   ASSERT_EQ(a.getRows(), 1);
@@ -63,7 +63,7 @@ TEST(S21Matrix, incorrect_element) {
   ASSERT_THROW(a(2, 2) = 5, std::out_of_range);
 }
 
-TEST(S21Matrix, set_rows_increasing) {
+TEST(EssentialsSuite, set_rows_increasing) {
   S21Matrix a = random_matrix(3, 3);
   a.setRows(10);
 
@@ -75,7 +75,7 @@ TEST(S21Matrix, set_rows_increasing) {
   }
 }
 
-TEST(S21Matrix, set_rows_decreasing) {
+TEST(EssentialsSuite, set_rows_decreasing) {
   S21Matrix a = random_matrix(3, 3);
   a.setRows(2);
 
@@ -83,7 +83,7 @@ TEST(S21Matrix, set_rows_decreasing) {
   ASSERT_THROW(a(2, 2), std::out_of_range);
 }
 
-TEST(S21Matrix, set_cols_increasing) {
+TEST(EssentialsSuite, set_cols_increasing) {
   S21Matrix a = random_matrix(3, 3);
   a.setCols(10);
 
@@ -95,7 +95,7 @@ TEST(S21Matrix, set_cols_increasing) {
   }
 }
 
-TEST(S21Matrix, set_cols_decreasing) {
+TEST(EssentialsSuite, set_cols_decreasing) {
   S21Matrix a = random_matrix(3, 3);
   a.setCols(2);
 

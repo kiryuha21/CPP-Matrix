@@ -1,6 +1,6 @@
 #include "unit_tests.h"
 
-TEST(S21Matrix, equal) {
+TEST(ComparisonsSuite, equal) {
   S21Matrix a = random_matrix(5, 6);
   S21Matrix b(a);
 
@@ -15,7 +15,7 @@ TEST(S21Matrix, equal) {
   ASSERT_EQ(res, a == b);
 }
 
-TEST(S21Matrix, equal_empty) {
+TEST(ComparisonsSuite, equal_empty) {
   S21Matrix a;
   S21Matrix b;
 
@@ -25,7 +25,7 @@ TEST(S21Matrix, equal_empty) {
   ASSERT_EQ(res, a == b);
 }
 
-TEST(S21Matrix, unequal_size) {
+TEST(ComparisonsSuite, unequal_size) {
   S21Matrix a = random_matrix(4, 4);
   S21Matrix b = random_matrix(5, 5);
 
@@ -35,7 +35,7 @@ TEST(S21Matrix, unequal_size) {
   ASSERT_EQ(res, a == b);
 }
 
-TEST(S21Matrix, unequal_element) {
+TEST(ComparisonsSuite, unequal_element) {
   S21Matrix a = random_matrix(5, 6);
   S21Matrix b(a);
   b(4, 4) += 1;

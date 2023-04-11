@@ -1,6 +1,6 @@
 #include "unit_tests.h"
 
-TEST(S21Matrix, empty_arithmetics) {
+TEST(ArithmeticsSuite, empty_arithmetics) {
   S21Matrix a;
   S21Matrix b;
   ASSERT_THROW(a += b, std::length_error);
@@ -9,7 +9,7 @@ TEST(S21Matrix, empty_arithmetics) {
   ASSERT_THROW(a *= 5, std::length_error);
 }
 
-TEST(S21Matrix, correct_plus) {
+TEST(ArithmeticsSuite, correct_plus) {
   S21Matrix a = random_matrix(4, 5);
   S21Matrix b = random_matrix(4, 5);
   S21Matrix c;
@@ -21,7 +21,7 @@ TEST(S21Matrix, correct_plus) {
   }
 }
 
-TEST(S21Matrix, correct_func_plus) {
+TEST(ArithmeticsSuite, correct_func_plus) {
   S21Matrix a = random_matrix(4, 5);
   S21Matrix b = random_matrix(4, 5);
   S21Matrix c(b);
@@ -33,13 +33,13 @@ TEST(S21Matrix, correct_func_plus) {
   }
 }
 
-TEST(S21Matrix, plus_with_wrong_size) {
+TEST(ArithmeticsSuite, plus_with_wrong_size) {
   S21Matrix a(4, 4);
   S21Matrix b(5, 5);
   ASSERT_THROW(S21Matrix c = a + b, std::length_error);
 }
 
-TEST(S21Matrix, correct_minus) {
+TEST(ArithmeticsSuite, correct_minus) {
   S21Matrix a = random_matrix(4, 5);
   S21Matrix b = random_matrix(4, 5);
   S21Matrix c;
@@ -51,7 +51,7 @@ TEST(S21Matrix, correct_minus) {
   }
 }
 
-TEST(S21Matrix, correct_func_minus) {
+TEST(ArithmeticsSuite, correct_func_minus) {
   S21Matrix a = random_matrix(4, 5);
   S21Matrix b = random_matrix(4, 5);
   S21Matrix c(b);
@@ -63,13 +63,13 @@ TEST(S21Matrix, correct_func_minus) {
   }
 }
 
-TEST(S21Matrix, minus_with_wrong_size) {
+TEST(ArithmeticsSuite, minus_with_wrong_size) {
   S21Matrix a(4, 4);
   S21Matrix b(5, 5);
   ASSERT_THROW(S21Matrix c = a - b, std::length_error);
 }
 
-TEST(S21Matrix, correct_mul_num) {
+TEST(ArithmeticsSuite, correct_mul_num) {
   S21Matrix a = random_matrix(4, 5);
   S21Matrix b = a * 5;
 
@@ -80,7 +80,7 @@ TEST(S21Matrix, correct_mul_num) {
   }
 }
 
-TEST(S21Matrix, correct_mul_num_func) {
+TEST(ArithmeticsSuite, correct_mul_num_func) {
   S21Matrix a = random_matrix(4, 5);
   S21Matrix b(a);
   b.MulNumber(5);
@@ -92,7 +92,7 @@ TEST(S21Matrix, correct_mul_num_func) {
   }
 }
 
-TEST(S21Matrix, correct_mul_matrix) {
+TEST(ArithmeticsSuite, correct_mul_matrix) {
   S21Matrix a = random_matrix(5, 6);
   S21Matrix b = random_matrix(6, 5);
   S21Matrix c = a * b;
@@ -108,7 +108,7 @@ TEST(S21Matrix, correct_mul_matrix) {
   }
 }
 
-TEST(S21Matrix, correct_mul_matrix_func) {
+TEST(ArithmeticsSuite, correct_mul_matrix_func) {
   S21Matrix a = random_matrix(5, 6);
   S21Matrix b = random_matrix(6, 5);
   S21Matrix c(a);
@@ -128,7 +128,7 @@ TEST(S21Matrix, correct_mul_matrix_func) {
   }
 }
 
-TEST(S21Matrix, mul_matrix_with_wrong_size) {
+TEST(ArithmeticsSuite, mul_matrix_with_wrong_size) {
   S21Matrix a = random_matrix(7, 8);
   S21Matrix b = random_matrix(7, 8);
   ASSERT_THROW(S21Matrix c = a * b, std::length_error);
