@@ -12,9 +12,9 @@ auto constexpr DIFFERENT_SIZES_MSG = "Different matrix sizes!";
 
 class S21Matrix {
  private:
-  int _rows = 0;
-  int _cols = 0;
-  double** _matrix = nullptr;
+  int rows_ = 0;
+  int cols_ = 0;
+  double** matrix_ = nullptr;
 
   void free_matrix();
   void init_matrix(int rows, int cols);

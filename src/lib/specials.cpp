@@ -1,10 +1,10 @@
 #include "../s21_matrix_oop.h"
 
 S21Matrix S21Matrix::Transpose() {
-  S21Matrix result(_cols, _rows);
-  for (int i = 0; i < _cols; ++i) {
-    for (int j = 0; j < _rows; ++j) {
-      result._matrix[i][j] = _matrix[j][i];
+  S21Matrix result(cols_, rows_);
+  for (int i = 0; i < cols_; ++i) {
+    for (int j = 0; j < rows_; ++j) {
+      result.matrix_[i][j] = matrix_[j][i];
     }
   }
   return result;
@@ -14,12 +14,12 @@ void S21Matrix::minus_row_col(const S21Matrix& origin_matrix,
                               S21Matrix& temp_matrix, int row, int col) {
   int miss_row = 0;
 
-  for (int i = 0; i < origin_matrix._rows - 1; ++i) {
+  for (int i = 0; i < origin_matrix.rows_ - 1; ++i) {
     if (i == row) {
       miss_row = 1;
     }
     int miss_col = 0;
-    for (int j = 0; j < origin_matrix._rows - 1; ++j) {
+    for (int j = 0; j < origin_matrix.rows_ - 1; ++j) {
       if (j == col) {
         miss_col = 1;
       }
@@ -30,20 +30,20 @@ void S21Matrix::minus_row_col(const S21Matrix& origin_matrix,
 
 double S21Matrix::recursive_det(const S21Matrix& origin_matrix) {
   double temp_det = 0;
-  if (origin_matrix._rows == 1) {
+  if (origin_matrix.rows_ == 1) {
     temp_det = origin_matrix(0, 0);
     return temp_det;
   }
 
-  if (origin_matrix._rows == 2) {
+  if (origin_matrix.rows_ == 2) {
     temp_det = origin_matrix(0, 0) * origin_matrix(1, 1) -
                (origin_matrix(1, 0) * origin_matrix(0, 1));
     return temp_det;
   }
 
   int sign = 1;
-  S21Matrix temp_matrix(origin_matrix._rows - 1, origin_matrix._cols - 1);
-  for (int i = 0; i < origin_matrix._rows; ++i) {
+  S21Matrix temp_matrix(origin_matrix.rows_ - 1, origin_matrix.cols_ - 1);
+  for (int i = 0; i < origin_matrix.rows_; ++i) {
     minus_row_col(origin_matrix, temp_matrix, i, 0);
     temp_det =
         temp_det + sign * origin_matrix(i, 0) * recursive_det(temp_matrix);
@@ -54,7 +54,7 @@ double S21Matrix::recursive_det(const S21Matrix& origin_matrix) {
 }
 
 double S21Matrix::Determinant() {
-  if (_rows != _cols) {
+  if (rows_ != cols_) {
     throw std::length_error(DIFFERENT_SIZES_MSG);
   }
 
@@ -62,21 +62,21 @@ double S21Matrix::Determinant() {
 }
 
 S21Matrix S21Matrix::CalcComplements() {
-  if (_rows != _cols) {
+  if (rows_ != cols_) {
     throw std::length_error(DIFFERENT_SIZES_MSG);
   }
 
-  if (_rows == 1) {
+  if (rows_ == 1) {
     S21Matrix res(*this);
     res(0, 0) = 1;
     return res;
   }
 
   int sign;
-  S21Matrix temp_matrix(_rows, _cols);
-  for (int i = 0; i < temp_matrix._rows; ++i) {
-    for (int j = 0; j < temp_matrix._cols; ++j) {
-      S21Matrix additions_matrix(temp_matrix._rows - 1, temp_matrix._cols - 1);
+  S21Matrix temp_matrix(rows_, cols_);
+  for (int i = 0; i < temp_matrix.rows_; ++i) {
+    for (int j = 0; j < temp_matrix.cols_; ++j) {
+      S21Matrix additions_matrix(temp_matrix.rows_ - 1, temp_matrix.cols_ - 1);
       minus_row_col(*this, additions_matrix, i, j);
       if ((i + j) % 2 == 0) {
         sign = 1;

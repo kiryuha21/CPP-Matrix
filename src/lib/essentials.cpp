@@ -10,14 +10,14 @@ S21Matrix::S21Matrix(S21Matrix&& other) noexcept { *this = std::move(other); }
 
 S21Matrix::~S21Matrix() { free_matrix(); }
 
-int S21Matrix::getRows() const { return _rows; }
+int S21Matrix::getRows() const { return rows_; }
 
-int S21Matrix::getCols() const { return _cols; }
+int S21Matrix::getCols() const { return cols_; }
 
 void S21Matrix::setRows(int rows) {
-  S21Matrix res(rows, _cols);
-  for (int i = 0; i < std::min(rows, _rows); ++i) {
-    for (int j = 0; j < _cols; ++j) {
+  S21Matrix res(rows, cols_);
+  for (int i = 0; i < std::min(rows, rows_); ++i) {
+    for (int j = 0; j < cols_; ++j) {
       res(i, j) = (*this)(i, j);
     }
   }
@@ -25,9 +25,9 @@ void S21Matrix::setRows(int rows) {
 }
 
 void S21Matrix::setCols(int cols) {
-  S21Matrix res(_rows, cols);
-  for (int i = 0; i < _rows; ++i) {
-    for (int j = 0; j < std::min(cols, _cols); ++j) {
+  S21Matrix res(rows_, cols);
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < std::min(cols, cols_); ++j) {
       res(i, j) = (*this)(i, j);
     }
   }
@@ -35,10 +35,10 @@ void S21Matrix::setCols(int cols) {
 }
 
 void S21Matrix::free_matrix() {
-  for (int i = 0; i < _rows; ++i) {
-    delete[] _matrix[i];
+  for (int i = 0; i < rows_; ++i) {
+    delete[] matrix_[i];
   }
-  delete[] _matrix;
+  delete[] matrix_;
 }
 
 void S21Matrix::init_matrix(int rows, int cols) {
@@ -46,13 +46,13 @@ void S21Matrix::init_matrix(int rows, int cols) {
     throw std::length_error(INVALID_MATRIX_MSG);
   }
 
-  _rows = rows;
-  _cols = cols;
+  rows_ = rows;
+  cols_ = cols;
 
   try {
-    _matrix = new double*[rows];
+    matrix_ = new double*[rows];
     for (int i = 0; i < rows; ++i) {
-      _matrix[i] = new double[cols];
+      matrix_[i] = new double[cols];
     }
   } catch (std::bad_alloc& e) {
     std::throw_with_nested(e);
@@ -60,7 +60,7 @@ void S21Matrix::init_matrix(int rows, int cols) {
 
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < cols; ++j) {
-      _matrix[i][j] = 0;
+      matrix_[i][j] = 0;
     }
   }
 }
