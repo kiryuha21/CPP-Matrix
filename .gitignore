@@ -39,6 +39,7 @@ cmake-build-debug
 *.i*86
 *.x86_64
 *.hex
+s21_test
 
 # Debug files
 *.dSYM/
